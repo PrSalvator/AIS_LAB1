@@ -41,7 +41,8 @@ namespace AIS_LAB1
                 { 18, "Микровэн"}
             };
 
-           
+            ReadData("cars.csv", 2);
+            Console.ReadKey();
         }
         private static void WriteData(Car car, string path, bool is_rewrite)
         {
@@ -50,6 +51,29 @@ namespace AIS_LAB1
                 sw.WriteLine("{0}; {1}; {2}; {3}; {4}; {5}; {6}", car.Car_model, car.Car_brand, car.Car_type, car.Body_type, car.Amount_of_horsepower, car.Number_of_doors, car.Is_electric_car);
             }
         }
-       
+        private static string ReadData(string path)
+        {
+            using (StreamReader sr = new StreamReader(path))
+            {
+                return sr.ReadToEnd();
+            }
+        }
+        private static string ReadData(string path, int index)
+        {
+            using (StreamReader sr = new StreamReader(path))
+            {
+                int counter = 0;
+                string line = null;
+                while (counter != index)
+                {
+                    counter += 1;
+                    line = sr.ReadLine();
+                    if (line == null) break;
+                }
+                return line;
+            }
+            
+        }
+        
     }
 }
