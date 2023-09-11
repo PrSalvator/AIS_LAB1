@@ -8,7 +8,7 @@ namespace AIS_LAB1
 {
     class Car
     {
-        public Car(int NOD, int AOH, string CT, string CB, string CM, bool IEC)
+        public Car(int NOD, int AOH, string CT, string CB, string CM, string BT, bool IEC)
         {
             Number_of_doors = NOD;
             Amount_of_horsepower = AOH;
@@ -16,6 +16,7 @@ namespace AIS_LAB1
             Car_brand = CB;
             Car_model = CM;
             Is_electric_car = IEC;
+            Body_type = BT;
         }
         public Car() { }
 
