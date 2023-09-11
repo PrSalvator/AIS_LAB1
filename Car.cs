@@ -72,7 +72,7 @@ namespace AIS_LAB1
         public string Car_brand { get; set; }
 
         public string Car_model { get; set; }
-
+        public string Body_type { get; set; }
         public bool Is_electric_car { get; set; }
 
     }
