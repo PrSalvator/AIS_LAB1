@@ -41,39 +41,84 @@ namespace AIS_LAB1
                 { 18, "Микровэн"}
             };
 
-            ReadData("cars.csv", 2);
             Console.ReadKey();
         }
         private static void WriteData(Car car, string path, bool is_rewrite)
         {
             using (StreamWriter sw = new StreamWriter(path, is_rewrite, System.Text.Encoding.Default))
             {
-                sw.WriteLine("{0}; {1}; {2}; {3}; {4}; {5}; {6}", car.Car_model, car.Car_brand, car.Car_type, car.Body_type, car.Amount_of_horsepower, car.Number_of_doors, car.Is_electric_car);
+                sw.WriteLine("{0}; {1}; {2}; {3}; {4}; {5}; {6};", car.Car_model, car.Car_brand, car.Car_type, car.Body_type, car.Amount_of_horsepower, car.Number_of_doors, car.Is_electric_car);
             }
         }
         private static string ReadData(string path)
         {
-            using (StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
             {
                 return sr.ReadToEnd();
             }
         }
         private static string ReadData(string path, int index)
         {
-            using (StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
             {
-                int counter = 0;
-                string line = null;
-                while (counter != index)
+                string[] data;
+                data = sr.ReadToEnd().Split('\r');
+                try
                 {
-                    counter += 1;
-                    line = sr.ReadLine();
-                    if (line == null) break;
+                    return data[index];
                 }
-                return line;
+                catch(Exception ex)
+                {
+                    return "";
+                }
             }
             
         }
-        
+
+        private static void DeleteData(string path)
+        {
+            using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
+            {
+                sw.Write("");
+            }
+        }
+        private static void DeleteData(string path, int start, int finish)
+        {
+            string[] data;
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            {
+                data = sr.ReadToEnd().Split('\r');
+            }
+            DeleteData(path);
+            using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (i < start && i > finish)
+                    {
+                        sw.Write(data[i]);
+                    }
+                }
+            }
+        }
+        private static void DeleteData(string path, int index)
+        {
+            string[] data;
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            {
+                data = sr.ReadToEnd().Split('\r');
+            }
+            DeleteData(path);
+            using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
+            {
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (i != index)
+                    {
+                        sw.Write(data[i]);
+                    }
+                }
+            }
+        }
     }
 }
