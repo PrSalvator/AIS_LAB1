@@ -19,25 +19,39 @@ namespace AIS_LAB1
         }
         public static string ReadData(string path)
         {
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            try
             {
-                return sr.ReadToEnd();
+                using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+                {
+                    return sr.ReadToEnd();
+                }
+            }
+            catch { 
+                return "Проблема с открытием файла"; 
             }
         }
+
         public static string ReadData(string path, int index)
         {
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            try
             {
-                string[] data;
-                data = sr.ReadToEnd().Split('\r');
-                try
+                using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
                 {
-                    return data[index];
+                    string[] data;
+                    data = sr.ReadToEnd().Split('\r');
+                    try
+                    {
+                        return data[index];
+                    }
+                    catch (Exception e)
+                    {
+                        return $"{e.Message}";
+                    }
                 }
-                catch (Exception e)
-                {
-                    return $"{e.Message}";
-                }
+            }
+            catch
+            {
+                return "Проблема с открытием файла";
             }
 
         }
@@ -47,27 +61,6 @@ namespace AIS_LAB1
             using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
             {
                 sw.Write("");
-            }
-        }
-        public static void DeleteData(string path, int start, int finish)
-        {
-            string[] data;
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
-            {
-                data = sr.ReadToEnd().Split('\r');
-            }
-            DeleteData(path);
-            using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
-            {
-                for (int i = 0; i < start; i++)
-                {
-                    sw.Write(data[i]);
-                }
-
-                for (int i = finish; i < data.Length; i++)
-                {
-                    sw.Write(data[i]);
-                }
             }
         }
         public static void DeleteData(string path, int index)

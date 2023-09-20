@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AIS_LAB1
 {
-    class Car
+    public class Car
     {
         public static Dictionary<int, string> Types = new Dictionary<int, string>
             {

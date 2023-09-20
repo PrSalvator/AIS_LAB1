@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AIS_LAB1
 {
-    class Validator
+    public class Validator
     {
         static public bool Is_Letter(string target)
         {
@@ -16,14 +16,19 @@ namespace AIS_LAB1
             }
             return false;
         }
-        static public bool In_Interval(int start, int finish, int target)
+        static public bool In_Interval(int start, int finish, string target)
         {
-            if(target < start || target > finish)
+            if (Is_Letter(target))
             {
-                return false;
-            }
+                int _target = int.Parse(target);
+                if (_target < start || _target > finish)
+                {
+                    return false;
+                }
 
-            return true;
+                return true;
+            }
+            return false;
         }
     }
 }
